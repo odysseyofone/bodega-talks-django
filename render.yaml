@@ -12,7 +12,7 @@ services:
       - key: ALLOWED_HOSTS
         value: bodega-talks-django.onrender.com
       - key: CSRF_TRUSTED_ORIGINS
-        value: bodega-talks-django.onrender.com
+        value: https://bodega-talks-django.onrender.com
       # Uncomment these when you move to Postgres:
       # - key: DATABASE_URL
       #   fromDatabase:
