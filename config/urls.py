@@ -1,3 +1,4 @@
+# config/urls.py
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
@@ -11,5 +12,5 @@ urlpatterns = [
     path("checkout/", include(("checkout.urls", "checkout"), namespace="checkout")),
 ]
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# Serve media in prod too (simple approach)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
