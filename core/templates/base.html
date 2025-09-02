@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}Bodega Talks{% endblock %}</title>
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Bevan&display=swap" />
+
+    <link id="main-style" rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <script>
+      // cache-bust like your static site
+      document.addEventListener('DOMContentLoaded', () => {
+        const link = document.getElementById("main-style");
+        link.href = link.href + "?v=" + Date.now();
+      });
+    </script>
+    {% block head %}{% endblock %}
+  </head>
+  <body>
+    <header>
+      <nav class="nav" aria-label="Primary">
+        <a href="{% url 'core:home' %}" class="logo" aria-label="Bodega Talks — Home">
+          <img src="{% static 'assets/BDT-web.svg' %}"
+               alt="Bodega Talks logo" class="logo-svg" width="200" height="50"
+               decoding="async" />
+        </a>
+
+        <ul class="nav-links">
+          <li><a href="{% url 'shop:list' %}" class="nav-watch">SHOP</a></li>
+          <li><a href="{% url 'cart:detail' %}">CART ({{ cart|length }})</a></li>
+        </ul>
+
+        <div class="social-links">
+          <a href="https://www.instagram.com/bodegatalks/?hl=en" target="_blank" aria-label="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://www.youtube.com/@xperimenttv" target="_blank" aria-label="YouTube">
+            <i class="fab fa-youtube"></i>
+          </a>
+          <a href="https://www.tiktok.com/@bodegatalks?lang=en" target="_blank" aria-label="TikTok">
+            <i class="fab fa-tiktok"></i>
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+      <p>© {% now 'Y' %} Bodega Talks. All rights reserved.</p>
+    </footer>
+
+    {% block scripts %}{% endblock %}
+  </body>
+</html>

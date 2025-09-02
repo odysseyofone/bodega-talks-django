@@ -1,0 +1,346 @@
+/* =========================
+   Base / Reset
+========================= */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+:root {
+  --brand: #fff000;
+  --brand-deep: #ffe100;
+  --bg: #fff;
+  --ink: #000;
+  --ink-strong: #000;
+  --text: #000;
+  --text-muted: #555;
+  --border: #fff000;
+
+  --heading-font: 'Bevan', serif;
+
+  --radius-lg: 14px;
+  --shadow-md: 0 8px 24px rgba(0,0,0,.15);
+  --shadow-lg: 0 10px 24px rgba(0,0,0,.08);
+  --container: 1100px;
+}
+
+body {
+  margin: 0;
+  font-family: Helvetica, Arial, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.6;
+}
+
+/* Better default links */
+a { color: inherit; text-decoration: none; }
+
+/* SR-only utility */
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* =========================
+   Typography
+========================= */
+h1, h2, h3,
+.logo-text,
+.nav-links a,
+.hero h1,
+.hero h2 { font-family: var(--heading-font); }
+
+/* =========================
+   Header / Nav
+========================= */
+header {
+  background: var(--brand);
+  border-bottom: 2px solid var(--border);
+}
+
+nav, .nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  gap: 1rem;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.logo-text { font-size: 1.125rem; }
+
+.logo-svg { display: block; height: auto; }
+.logo-svg path, .logo-svg text { fill: var(--ink); }
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+.nav-links a {
+  font-weight: 500;
+  font-size: 1.25rem;
+}
+
+header .social-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0;
+}
+
+/* Focus styles */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+/* =========================
+   Hero – Videos
+========================= */
+.hero-videos {
+  text-align: center;
+  padding: 2rem 2rem 5rem;
+  background: var(--brand);
+}
+.hero-videos h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin-bottom: 0rem;
+  margin-top: 0;
+}
+.hero-videos-grid {
+  display: grid;
+  gap: 1.5rem;
+  max-width: var(--container);
+  margin: 0 auto;
+  grid-template-columns: repeat(3, 1fr);
+}
+.hero-videos .video {
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+.hero-videos iframe { width: 100%; height: 100%; border: 0; }
+
+/* =========================
+   Hero – General
+========================= */
+.hero {
+  text-align: center;
+  padding: 7rem 2rem 6rem;
+  background: var(--brand);
+}
+.hero h1 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem; }
+.hero h2 { font-size: 2rem; margin-bottom: 1rem; }
+.hero p  { max-width: 60ch; margin: 0 auto 2rem; color: #333; }
+
+/* =========================
+   Social links
+========================= */
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.social-links a {
+  --size: 40px;
+  width: var(--size);
+  height: var(--size);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #000;
+  color: #fff;
+  font-size: 1.25rem;
+  transition: background-color .3s, transform .2s;
+}
+.social-links a:hover {
+  background: var(--brand);
+  color: #000;
+  transform: scale(1.1);
+}
+
+/* =========================
+   Merch Hero + Products
+========================= */
+.hero-merch {
+  position: relative;
+  background: var(--brand);
+  color: var(--ink);
+  padding: 5rem 2rem;
+}
+.hero-merch::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: none;
+}
+.hero-merch .hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: var(--container);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.1fr 1.9fr;
+  align-items: center;
+  gap: 2rem;
+}
+
+.hero-copy { padding: 1rem; }
+.hero-copy h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin-bottom: .5rem;
+}
+.hero-copy p {
+  max-width: 45ch;
+  color: #222;
+  margin: 0 0 1.25rem 0;
+}
+.hero-copy .cta {
+  display: inline-block;
+  padding: .75rem 1.5rem;
+  background: #000;
+  color: #fff;
+  border-radius: 999px;
+  font-weight: 700;
+  transition: background-color .25s, transform .15s ease-out;
+}
+.hero-copy .cta:hover { background: #333; }
+.hero-copy .cta:active { transform: translateY(1px); }
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+.product-card {
+  background: #000;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform .2s ease, box-shadow .2s ease;
+  aspect-ratio: 1 / 1
+}
+.product-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+.product-media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+.product-info {
+  padding: .9rem 1rem 1.1rem;
+  text-align: center;
+}
+.product-title {
+  font-family: var(--heading-font);
+  font-size: 1.125rem;
+  margin-bottom: .25rem;
+}
+.product-price {
+  color: #222;
+  font-weight: 600;
+  margin-bottom: .6rem;
+}
+.btn {
+  display: inline-block;
+  padding: .55rem 1.1rem;
+  background: var(--brand);
+  color: var(--ink);
+  border-radius: 999px;
+  font-weight: 700;
+  border: 1px solid #000;
+  transition: transform .15s ease, background-color .2s ease;
+}
+.btn:hover { background: var(--brand-deep); }
+.btn:active { transform: translateY(1px); }
+
+/* =========================
+   Footer
+========================= */
+footer {
+  text-align: center;
+  padding: 1.5rem;
+  background: #0007ff;
+  border-top: 1px solid var(--border);
+  font-size: .9rem;
+  color: #ffffff;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+/* =========================
+   Responsive
+========================= */
+@media (max-width: 980px) {
+  .hero-merch .hero-inner { grid-template-columns: 1fr; text-align: center; }
+  .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hide-on-mobile { display: none; }
+}
+
+@media (max-width: 960px) {
+  .hero-videos-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 720px) {
+  nav, .nav { flex-direction: column; padding: 1rem; }
+  .nav-links { gap: 1rem; }
+  .hero { padding: 4rem 1.25rem; }
+}
+
+@media (max-width: 600px) {
+  .hero-videos-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 560px) {
+  .product-grid { grid-template-columns: 1fr; }
+}
+
+/* =========================
+   Subtle hovers
+========================= */
+.nav-links a:hover { color: var(--brand); }
+@media (max-width: 980px) {
+  .hero-merch .hero-inner { 
+    grid-template-columns: 1fr; 
+    text-align: center; 
+  }
+
+  .hero-copy {
+    text-align: center;   /* 👈 center the text itself */
+    margin: 0 auto;       /* 👈 keeps it nicely centered */
+  }
+}
+@media (max-width: 980px) {
+  .hero-copy .cta {
+    display: inline-block;
+    margin: 0 auto;
+  }
+}

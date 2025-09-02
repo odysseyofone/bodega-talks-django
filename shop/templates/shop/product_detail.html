@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ product.name }} — Shop{% endblock %}
+
+{% block content %}
+<section class="hero" style="background: var(--brand);">
+  <h1>{{ product.name }}</h1>
+  <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:2rem;padding:1rem;">
+    <div>
+      <img id="main-image" class="product-main"
+           src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'assets/products/placeholder.jpg' %}{% endif %}"
+           alt="{{ product.name }}" style="width:100%;border-radius:12px;" />
+      {% if product.images.all %}
+        <div class="thumbs" style="display:flex;gap:.5rem;margin-top:.5rem;flex-wrap:wrap;">
+          {% for im in product.images.all %}
+            <button class="thumb" type="button" data-full="{{ im.image.url }}" style="border:0;background:none;padding:0;">
+              <img src="{{ im.image.url }}" alt="{{ im.alt|default:product.name }}" style="width:90px;height:90px;object-fit:cover;border-radius:8px;" />
+            </button>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+    <div>
+      <p style="color:#222;">{{ product.description|linebreaks }}</p>
+      <p class="product-price" style="font-size:1.25rem;font-weight:700;">${{ product.price }}</p>
+      <form action="{% url 'cart:add' product.id %}" method="post">
+        {% csrf_token %}
+        <button class="btn" type="submit">Add to Cart</button>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.thumb');
+    if (!btn) return;
+    const full = btn.dataset.full;
+    const main = document.getElementById('main-image');
+    if (full && main) main.src = full;
+  });
+</script>
+{% endblock %}

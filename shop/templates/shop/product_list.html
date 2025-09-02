@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Shop — Bodega Talks{% endblock %}
+
+{% block content %}
+<section class="hero hero-merch">
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <h1>Shop Bodega Talks Merch</h1>
+      <p>Limited drops. Street-ready staples. Grab yours before they’re gone.</p>
+      <a href="{% url 'shop:list' %}" class="cta">Shop All</a>
+    </div>
+
+    <div class="product-grid">
+      {% for product in products %}
+      <article class="product-card">
+        <a href="{{ product.get_absolute_url }}" class="product-media" aria-label="{{ product.name }}">
+          {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" width="320" height="400" loading="lazy" />
+          {% else %}
+            <img src="{% static 'assets/products/placeholder.jpg' %}" alt="{{ product.name }}" width="320" height="400" loading="lazy" />
+          {% endif %}
+        </a>
+        <div class="product-info">
+          <h3 class="product-title">{{ product.name }}</h3>
+          <p class="product-price">${{ product.price }}</p>
+          <a href="{{ product.get_absolute_url }}" class="btn">View</a>
+        </div>
+      </article>
+      {% empty %}
+      <p>No products yet.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

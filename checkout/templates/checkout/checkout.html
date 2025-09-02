@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Checkout — Bodega Talks{% endblock %}
+{% block content %}
+<section class="hero" style="background: var(--brand);">
+  <h1>Checkout</h1>
+  <div style="max-width:780px;margin:0 auto;">
+    {% if order %}
+      <p>Thanks {{ order.name }}! Your order #{{ order.id }} has been received.</p>
+    {% elif form %}
+      <form method="post" style="background:#fff;padding:1rem;border-radius:12px;">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn">Place Order</button>
+      </form>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}
