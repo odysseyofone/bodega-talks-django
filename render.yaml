@@ -1,7 +1,6 @@
 services:
   - type: web
     name: bodegatalks
-    runtime: python
     plan: free
     buildCommand: ./build.sh
     startCommand: gunicorn config.wsgi:application --preload --bind 0.0.0.0:$PORT
