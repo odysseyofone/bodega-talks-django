@@ -1,0 +1,8 @@
+Django==5.2.5
+gunicorn
+whitenoise
+pillow
+python-dotenv
+# Optional if you switch to Postgres later:
+dj-database-url
+psycopg[binary]
