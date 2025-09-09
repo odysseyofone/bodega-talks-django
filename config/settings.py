@@ -105,3 +105,34 @@ MEDIA_ROOT = "/var/media"  # matches render.yaml disk
 CART_SESSION_ID = "cart"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# --- Production Security (Render) ---
+if not DEBUG:
+    # Tell Django it’s behind Render’s proxy and HTTPS is safe
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+    # Redirect all requests to HTTPS
+    SECURE_SSL_REDIRECT = True
+
+    # Secure cookies
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+
+    # Harden headers
+    SECURE_HSTS_SECONDS = 31536000  # one year
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+    SECURE_REFERRER_POLICY = "strict-origin"
+
+# --- Logging (Render logs) ---
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {"console": {"class": "logging.StreamHandler"}},
+    "root": {"handlers": ["console"], "level": "INFO"},
+    "loggers": {
+        "django.request": {"handlers": ["console"], "level": "ERROR", "propagate": False},
+        "django.security": {"handlers": ["console"], "level": "WARNING", "propagate": False},
+    },
+}
+
